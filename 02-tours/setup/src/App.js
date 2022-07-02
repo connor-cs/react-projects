@@ -26,6 +26,12 @@ function App() {
     }
   }
 
+  function handleDelete(id) {
+    console.log(id)
+    const newTours = tours.filter(tour => tour.id !== id)
+    setTours(newTours)
+  }
+
   useEffect(() => {
     fetchTours()
     console.log('tours', tours)
@@ -39,9 +45,17 @@ function App() {
     )
   }
 
+  if (tours.length === 0) {
+    return (
+      <div>
+        <h2 className='title'>No tours left</h2>
+        <button className='btn' onClick={fetchTours}>refresh</button>
+      </div>
+      )}
+
   return (
     <main>
-      <Tours tours={tours} />
+      <Tours tours={tours} handleDelete={handleDelete} />
     </main>
   )
 }
